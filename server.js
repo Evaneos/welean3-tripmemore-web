@@ -42,7 +42,7 @@ router.route('/pins')
 
         pin.save(function(err) {
             if (err){
-                response.setFailure(err);
+                response.setFail(err);
             }
             else{
                 response.setSuccess (pin);
@@ -72,7 +72,7 @@ router.route('/pins/:pin_id')
         var response = new apiResponse();
         Pin.findById(req.params.pin_id, function(err, pin) {
             if (err){
-                response.setFailure(err);
+                response.setFail(err);
             }
             else{
                 response.setSuccess (pin);
