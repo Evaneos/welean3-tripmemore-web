@@ -65,6 +65,23 @@ router.route('/pins')
         });
     });
 
+router.route('/pins/:pin_id')
+
+    // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
+    .get(function(req, res) {
+        var response = new apiResponse();
+        Pin.findById(req.params.pin_id, function(err, pin) {
+            if (err){
+                response.setFailure(err);
+            }
+            else{
+                response.setSuccess (pin);
+            }
+
+            res.json(response.getJson());
+        });
+    });
+
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
     var result = { message: 'hooray! welcome to our api!' };
