@@ -7,6 +7,7 @@
     "body-parser": "~1.0.1"
   },
   "devDependencies": {
+    "passport": "^0.2.1",
     "supervisor": "^0.6.0"
   }
 }

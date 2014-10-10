@@ -33,7 +33,7 @@ var Pin = mongoose.model('Pin', PinSchema);
 var router = express.Router();              // get an instance of the express Router
 
 
-router.route('/pins')
+router.route('/api/pins')
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
         var response = new apiResponse();
@@ -80,7 +80,7 @@ router.route('/pins')
         )    
     });
 
-router.route('/pins/:pin_id')
+router.route('/api/pins/:pin_id')
 
     // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
     .get(function(req, res) {
@@ -106,11 +106,14 @@ router.get('/', function(req, res) {
     res.json(response.getJson());
 });
 
+
+app.use("/home", express.static('./home'));
+
 // more routes for our API will happen here
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', router);
+app.use('/', router);
 
 // START THE SERVER
 // =============================================================================
