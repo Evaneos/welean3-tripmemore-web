@@ -53,16 +53,31 @@ router.route('/pins')
     })
     .get(function(req, res) {
         var response = new apiResponse();
-        Pin.find(function(err, pins) {
-            if (err){
-                response.setFailure(err);
-            }
-            else{
-                response.setSuccess (pins);
-            }
+        var conditions = {};
 
-            res.json(response.getJson());
-        });
+        if (req.query.pin_id){
+            conditions._id = req.query.pin_id;
+        }
+        if (req.query.user_id){
+            conditions.user_id = user_id;
+        }
+        if (req.query.keyword){
+            conditions['place.address_components.long_name'] = new RegExp(req.query.keyword,"i");
+        }
+
+        Pin.find(
+            conditions,
+            function(err, pins) {
+                if (err){
+                    response.setFail(err);
+                }
+                else{
+                    response.setSuccess (pins);
+                }
+
+                res.json(response.getJson());
+            }
+        )    
     });
 
 router.route('/pins/:pin_id')
