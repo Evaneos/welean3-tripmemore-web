@@ -37,16 +37,17 @@ The available routes for the are
 
 ### GET /api/pins/ 
 
-Return the list of pins.
-todo: implement possibility to filter the result by user_id and/or by keyword
+Return the list of pins. Two filters are available :
+
+GET /api/pins/?user_id=plop&keyword=truc returns the list filtered by user_id, where any of the place contains 'truc'
 
 ### POST /api/pins/
 
-Save a pin
+Save a pin. Use postman for your tests !
 
 ### GET /api/pins/:pin_id
 
-Fetches and return a pin
+Fetches and return a pin by id
 
 ## Pin schema
 
