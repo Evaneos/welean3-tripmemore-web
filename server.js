@@ -15,8 +15,7 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;        // set our port
 
-
-mongoose.connect('mongodb://node:node@localhost:27017');
+mongoose.connect('mongodb://localhost/tripmemore:27017');
 
 var Schema       = mongoose.Schema;
 
@@ -24,9 +23,7 @@ var PinSchema   = new Schema({
     origin: String
 });
 
-module.exports = mongoose.model('Pin', PinSchema);
-
-
+var Pin = mongoose.model('Pin', PinSchema);
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -39,26 +36,32 @@ router.route('/pins')
         var response = new apiResponse();
         var pin = new Pin();
         // set data
-        console.log (req.body);
         pin.origin = req.body.origin;
+        console.log (req);
 
         pin.save(function(err) {
+            console.log ("saving");
             if (err){
-                response.setFailure (err);
+                response.setFailure(err);
             }
-            else {
-                response.setSuccess ({ message: 'Pin created!' });
+            else{
+                response.setSuccess (pin);
             }
 
             res.json(response.getJson());
         });
     })
     .get(function(req, res) {
+        var response = new apiResponse();
         Pin.find(function(err, pins) {
-            if (err)
-                res.send(err);
+            if (err){
+                response.setFailure(err);
+            }
+            else{
+                response.setSuccess (pins);
+            }
 
-            res.json(pins);
+            res.json(response.getJson());
         });
     });
 
