@@ -20,7 +20,10 @@ mongoose.connect('mongodb://localhost/tripmemore:27017');
 var Schema       = mongoose.Schema;
 
 var PinSchema   = new Schema({
-    origin: String
+    origin: String,
+    date : { type : Date, default : Date.now },
+    place: Schema.Types.Mixed,
+    media: Schema.Types.Mixed
 });
 
 var Pin = mongoose.model('Pin', PinSchema);
@@ -34,13 +37,10 @@ router.route('/pins')
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
         var response = new apiResponse();
-        var pin = new Pin();
-        // set data
-        pin.origin = req.body.origin;
-        console.log (req);
+        var pin = new Pin(req.body);
+        // console.log (req.body);
 
         pin.save(function(err) {
-            console.log ("saving");
             if (err){
                 response.setFailure(err);
             }
