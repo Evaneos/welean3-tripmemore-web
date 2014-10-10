@@ -18,9 +18,49 @@ var port = process.env.PORT || 8080;        // set our port
 
 mongoose.connect('mongodb://node:node@localhost:27017');
 
+var Schema       = mongoose.Schema;
+
+var PinSchema   = new Schema({
+    origin: String
+});
+
+module.exports = mongoose.model('Pin', PinSchema);
+
+
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
+
+
+router.route('/pins')
+    // create a bear (accessed at POST http://localhost:8080/api/bears)
+    .post(function(req, res) {
+        var response = new apiResponse();
+        var pin = new Pin();
+        // set data
+        console.log (req.body);
+        pin.origin = req.body.origin;
+
+        pin.save(function(err) {
+            if (err){
+                response.setFailure (err);
+            }
+            else {
+                response.setSuccess ({ message: 'Pin created!' });
+            }
+
+            res.json(response.getJson());
+        });
+    })
+    .get(function(req, res) {
+        Pin.find(function(err, pins) {
+            if (err)
+                res.send(err);
+
+            res.json(pins);
+        });
+    });
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
