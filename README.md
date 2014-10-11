@@ -11,6 +11,8 @@ Based on a lot of information found on http://scotch.io/tutorials/javascript/bui
 Simply run
 
     npm install
+    bower install
+    gulp
 
 The package.json file contains everything you need
 

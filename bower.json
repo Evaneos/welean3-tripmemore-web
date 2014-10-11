@@ -1,0 +1,14 @@
+{
+  "name": "tripmemore",
+  "version": "0.1",
+  "dependencies": {
+    "bootstrap" : "3.2.x",
+    "ejs" : "1.0.x",
+    "fastclick": "1.0.x",
+    "jquery" : "2.1.x",
+    "leaflet": "0.7.x",
+    "leaflet.markercluster" : "0.4.x",
+    "magnific-popup": "0.9.x",
+    "tooltipster" : "3.2.x"
+  }
+}

@@ -1,0 +1,234 @@
+// Configuration ---------------------------------------------------------------
+
+@import (reference) 'config/colors.less';
+@import (reference) 'config/fonts.less';
+@import (reference) 'config/animation.less';
+@import (reference) 'config/bootstrap.less';
+@import (reference) 'config/layout.less';
+
+// Vendor ----------------------------------------------------------------------
+
+// Bootstrap
+@import (less) 'inc/bootstrap.less';
+.btn-user {
+  .button-variant(#fff; @brand-user; transparent);
+}
+
+// Tooltipster
+@import (inline) 'tooltipster/css/tooltipster.css';
+.tooltipster-tripmemore {
+    border-radius: 2px; 
+    border: none;
+    background: @brand-primary;
+    color: #fff;
+    .tooltipster-content {
+        .font(sans, light);
+        font-size: 14px;
+        line-height: 16px;
+        padding: 8px 10px;
+    }
+}
+
+// Leaflet
+@import (inline) 'leaflet/dist/leaflet.css';
+
+// Leaflet markercluster plugin
+@import (inline) 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+    
+// Magnific popup
+@import (inline) 'magnific-popup/dist/magnific-popup.css';
+
+// Local mixins
+@import (reference) 'lib/fonts.less';
+
+// Global ----------------------------------------------------------------------
+html, body{
+    height:100%;
+}
+a{
+    .transition(color @transition-duration-fast, background-color @transition-duration-fast;);
+}
+
+// Scrollbar
+::-webkit-scrollbar {  
+    width: 10px;
+    background-color: #eaebec;
+}  
+::-webkit-scrollbar-track {  
+    background-color: #eaebec;
+    border-left: #px solid #dadbdc;
+}  
+::-webkit-scrollbar-thumb {  
+    background-color: #ccc;  
+    border-radius:10px;
+}  
+::-webkit-scrollbar-thumb:hover {  
+    background-color: #aaa;  
+}  
+
+// Navbar ----------------------------------------------------------------------
+.navbar {
+    .font(hand, normal);
+    border-top:@navbar-top-border-width solid darken(@navbar-default-bg, 15%);
+    .navbar-brand{
+        display: block;
+        text-align: center;
+        width: @sidebar-width;
+        .font(hand, normal);
+        font-size:20px;
+        margin-right: @navbar-padding-horizontal;
+        color: @navbar-default-color;
+    }
+    .navbar-nav .btn-group{
+        margin-top: @navbar-padding-vertical / 2;
+        .btn {
+            padding:@padding-base-vertical @padding-base-horizontal (@padding-base-vertical - 3) (@padding-base-horizontal - 3);
+        }
+    }
+    .navbar-user{
+        border-left: 1px solid darken(@navbar-default-bg, 4%); // Separator
+        padding-left: @navbar-padding-horizontal;
+        .font(sans, normal);
+    }
+    .navbar-form {
+        padding-right: @navbar-padding-horizontal!important;
+        padding-top:2px; // Hard fix sorry
+    }
+    .navbar-form.navbar-right:last-child{
+        margin-right: 0!important;
+    }
+}
+
+// Wrappers --------------------------------------------------------------------
+
+.pinlist-wrapper {
+    position: absolute;
+    top: @navbar-height + @sidebar-margin-vertical + @navbar-top-border-width + 1px;
+    bottom: @sidebar-margin-vertical;
+    left: @sidebar-margin-horizontal;
+    width: @sidebar-width;
+    z-index: @sidebar-zindex;
+    background: @sidebar-bg;
+    color: @sidebar-color;
+    .box-shadow(0 0 10px 1px rgba(0,0,0, .3));
+    overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
+
+    > .title{
+        padding:.6em;
+        background: darken(@sidebar-bg, 5%);
+        text-align:center;
+        .font(serif, strong);
+    }
+
+    .pin {
+        @thumb-width:140px;
+        @thumb-margin:15px;
+        @padding-vertical: 8px;
+        @padding-horizontal: 8px;
+        min-height:@thumb-width * .7 + 2*@padding-vertical;
+        position:relative;
+        clear:both;
+        padding:@padding-vertical @padding-horizontal;
+        border-bottom:1px solid darken(@sidebar-bg, 5%);
+        .transition(background-color .2s);
+        img {
+            width: @thumb-width;
+            float: left;
+            margin-right: @thumb-margin;
+            cursor:pointer;
+        }
+        .title, .infos {
+            margin-left: @thumb-width + @thumb-margin;
+        }
+        .title{
+            font-size: 1.2em;
+            .font(serif, strong);
+            cursor:pointer;
+        }
+        .infos{;
+            color: @gray;
+            font-size:.8em;
+            margin-bottom:40px; // To make sure buttons don't override description
+        }
+        .links{
+            position:absolute;
+            bottom:@padding-vertical;
+            right:@padding-horizontal;
+        }
+        &:hover{
+            background:lighten(@sidebar-bg, 5%);
+        };
+    }
+}
+
+.map-wrapper {
+    position: absolute;
+    top: @navbar-height + @navbar-top-border-width;
+    right: 0;
+    bottom: 0;
+    left: @sidebar-width + @sidebar-margin-horizontal;
+    background: @gray-light;
+    z-index: @map-zindex;
+    #map {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: @color-blue-sea;
+    }
+}
+
+
+
+
+
+.tripmemore-modal {
+    @content-padding-horizontal : 15px;
+    @content-padding-vertical : 15px;
+    @left-width:300px;
+    @width:1200px;
+
+    position: relative;
+    
+    width: auto;
+    min-width: 300px;
+    max-width: @width;
+    margin: 20px auto;
+    padding:@content-padding-vertical 0;
+
+    .mfp-close {
+        color:#fff;
+    }
+    .inside{
+        margin:0 @content-padding-horizontal;
+        .left{
+            background:#fff;
+            float:left;
+            margin-right: @content-padding-horizontal;
+            width:@left-width + 2 * @content-padding-horizontal;
+            padding: @content-padding-vertical @content-padding-horizontal;
+            .title{
+                .font(serif, strong);
+                font-size:1.4em;
+            }
+            .map{
+                height:@left-width;
+                width:@left-width;
+                background: @color-blue-sea;
+                margin: @content-padding-vertical 0;
+            }
+        }
+        .right {
+            text-align:center;
+            margin-left:@left-width;
+            img{
+                width:auto;
+                max-width:90%;
+                max-height:100%;
+                border:10px solid #fff;
+            }
+        }
+    }
+}

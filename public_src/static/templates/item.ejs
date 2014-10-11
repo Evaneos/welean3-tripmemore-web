@@ -1,0 +1,14 @@
+<div class="image" data-id="<%- _id %>" >
+    <div class="left">
+        <div class="title"><%= place.name %></div>
+        <div class="map" id="map-details" data-ll="<%- place.ll %>" data-lg="<%- place.lg %>"></div>
+        <div class="infos">
+            Pined on <%= date %><br />
+            Source: <a href="<%- origin %>"><%= origin %></a>
+        </div>
+    </div>
+    <div class="right">
+        <img src="<%- media.content %>" />
+    </div>
+    <div class="clearfix"></div>
+</div>

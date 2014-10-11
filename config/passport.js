@@ -130,7 +130,7 @@ module.exports = function(passport) {
                     } else {
                         var reqUser = req.user;
                         reqUser.local.email = email;
-                        reqUser.local.password = user.generateHash(password);
+                        reqUser.local.password = reqUser.generateHash(password);
                         reqUser.save(function (err) {
                             if (err) {
                                 return done(err);

@@ -67,7 +67,7 @@ module.exports = function(app) {
         });
 
     // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-    app.get('/', function(req, res) {
+    app.get('/api', function(req, res) {
         var result = { message: 'hooray! welcome to our api!' };
         var response = new apiResponse();
         response.setSuccess (result);
