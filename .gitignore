@@ -1,1 +1,35 @@
-node_modules/
+## generic files to ignore
+*.BAK
+*.bak
+*.log
+*.old
+*~
+.#*
+,*
+*~
+*$
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.tmp
+*.log
+*.cache
+
+# Editor: Eclipse
+.buildpath
+.settings
+.project
+.pydevproject
+parameters.yml
+
+# Editor: PHPStorm
+.idea
+
+# Vendors
+node_modules
+bower_components
+
+# compiled files
+public/*
+!public/.keep
