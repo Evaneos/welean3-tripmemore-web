@@ -1,3 +1,5 @@
+'use strict';
+
 // load all the things we need
 var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -40,26 +42,29 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
-        if (email)
+        if (email) {
             email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
-
+        }
         // asynchronous
         process.nextTick(function() {
             User.findOne({ 'local.email' :  email }, function(err, user) {
                 // if there are any errors, return the error
-                if (err)
+                if (err) {
                     return done(err);
+                }
 
                 // if no user is found, return the message
-                if (!user)
+                if (!user) {
                     return done(null, false, req.flash('loginMessage', 'No user found.'));
+                }
 
-                if (!user.validPassword(password))
+                if (!user.validPassword(password)) {
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-
+                }
                 // all is well, return user
-                else
+                else {
                     return done(null, user);
+                }
             });
         });
 
@@ -75,8 +80,9 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
-        if (email)
+        if (email) {
             email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
+        }
 
         // asynchronous
         process.nextTick(function() {
@@ -84,8 +90,9 @@ module.exports = function(passport) {
             if (!req.user) {
                 User.findOne({ 'local.email' :  email }, function(err, user) {
                     // if there are any errors, return the error
-                    if (err)
+                    if (err) {
                         return done(err);
+                    }
 
                     // check to see if theres already a user with that email
                     if (user) {
@@ -99,8 +106,9 @@ module.exports = function(passport) {
                         newUser.local.password = newUser.generateHash(password);
 
                         newUser.save(function(err) {
-                            if (err)
+                            if (err) {
                                 return done(err);
+                            }
 
                             return done(null, newUser);
                         });
@@ -112,21 +120,23 @@ module.exports = function(passport) {
                 // ...presumably they're trying to connect a local account
                 // BUT let's check if the email used to connect a local account is being used by another user
                 User.findOne({ 'local.email' :  email }, function(err, user) {
-                    if (err)
+                    if (err) {
                         return done(err);
+                    }
                     
                     if (user) {
                         return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
                         // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                     } else {
-                        var user = req.user;
-                        user.local.email = email;
-                        user.local.password = user.generateHash(password);
-                        user.save(function (err) {
-                            if (err)
+                        var reqUser = req.user;
+                        reqUser.local.email = email;
+                        reqUser.local.password = user.generateHash(password);
+                        reqUser.save(function (err) {
+                            if (err) {
                                 return done(err);
+                            }
                             
-                            return done(null,user);
+                            return done(null,reqUser);
                         });
                     }
                 });
@@ -159,8 +169,9 @@ module.exports = function(passport) {
             if (!req.user) {
 
                 User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
-                    if (err)
+                    if (err) {
                         return done(err);
+                    }
 
                     if (user) {
 
@@ -171,8 +182,9 @@ module.exports = function(passport) {
                             user.facebook.email = (profile.emails[0].value || '').toLowerCase();
 
                             user.save(function(err) {
-                                if (err)
+                                if (err) {
                                     return done(err);
+                                }
                                     
                                 return done(null, user);
                             });
@@ -189,8 +201,9 @@ module.exports = function(passport) {
                         newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
 
                         newUser.save(function(err) {
-                            if (err)
+                            if (err) {
                                 return done(err);
+                            }
                                 
                             return done(null, newUser);
                         });
@@ -207,8 +220,9 @@ module.exports = function(passport) {
                 user.facebook.email = (profile.emails[0].value || '').toLowerCase();
 
                 user.save(function(err) {
-                    if (err)
+                    if (err) {
                         return done(err);
+                    }
                         
                     return done(null, user);
                 });
@@ -238,8 +252,9 @@ module.exports = function(passport) {
             if (!req.user) {
 
                 User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
-                    if (err)
+                    if (err) {
                         return done(err);
+                    }
 
                     if (user) {
                         // if there is a user id already but no token (user was linked at one point and then removed)
@@ -249,8 +264,9 @@ module.exports = function(passport) {
                             user.twitter.displayName = profile.displayName;
 
                             user.save(function(err) {
-                                if (err)
+                                if (err) {
                                     return done(err);
+                                }
                                     
                                 return done(null, user);
                             });
@@ -267,8 +283,9 @@ module.exports = function(passport) {
                         newUser.twitter.displayName = profile.displayName;
 
                         newUser.save(function(err) {
-                            if (err)
+                            if (err) {
                                 return done(err);
+                            }
                                 
                             return done(null, newUser);
                         });
@@ -285,8 +302,9 @@ module.exports = function(passport) {
                 user.twitter.displayName = profile.displayName;
 
                 user.save(function(err) {
-                    if (err)
+                    if (err) {
                         return done(err);
+                    }
                         
                     return done(null, user);
                 });

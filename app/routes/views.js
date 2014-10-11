@@ -1,3 +1,14 @@
+'use strict';
+
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	}
+	res.redirect('/');
+}
+
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -152,7 +163,13 @@ module.exports = function(app, passport) {
 		user.local.email    = undefined;
 		user.local.password = undefined;
 		user.save(function(err) {
-			res.redirect('/profile');
+			if(err) {
+				// @todo throw 500
+				console.log('Error while saving user');
+			}
+			else {
+				res.redirect('/profile');	
+			}
 		});
 	});
 
@@ -161,7 +178,13 @@ module.exports = function(app, passport) {
 		var user            = req.user;
 		user.facebook.token = undefined;
 		user.save(function(err) {
-			res.redirect('/profile');
+			if(err) {
+				// @todo throw 500
+				console.log('Error while saving user (unlink facebook');
+			}
+			else {
+				res.redirect('/profile');
+			}
 		});
 	});
 
@@ -170,7 +193,13 @@ module.exports = function(app, passport) {
 		var user           = req.user;
 		user.twitter.token = undefined;
 		user.save(function(err) {
-			res.redirect('/profile');
+			if(err) {
+				// @todo throw 500
+				console.log('Error while saving user (unlink twitter)');
+			}
+			else {
+				res.redirect('/profile');
+			}
 		});
 	});
 
@@ -179,17 +208,13 @@ module.exports = function(app, passport) {
 		var user          = req.user;
 		user.google.token = undefined;
 		user.save(function(err) {
-			res.redirect('/profile');
+			if(err) {
+				// @todo throw 500
+				console.log('Error while saving user unlink google');
+			}
+			else {
+				res.redirect('/profile');
+			}
 		});
 	});
-
-
 };
-
-// route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-	if (req.isAuthenticated())
-		return next();
-
-	res.redirect('/');
-}
