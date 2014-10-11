@@ -1,5 +1,5 @@
+'use strict';
 
-var mongoose = require('mongoose');
 var Pin = require('../models/pin');
 var apiResponse = require('../../lib/apiResponse');
 
@@ -20,20 +20,20 @@ module.exports = function(app) {
 
             res.json(response.getJson());
         });
-    })
+    });
 
     app.get ('/api/pins', function(req, res) {
         var response = new apiResponse();
         var conditions = {};
 
-        if (req.query.pin_id){
-            conditions._id = req.query.pin_id;
+        if (req.query.pin_id){ // jshint ignore:line
+            conditions._id = req.query.pin_id; // jshint ignore:line
         }
-        if (req.query.user_id){
-            conditions.user_id = user_id;
+        if (req.query.user_id){ // jshint ignore:line
+            conditions.user_id = user_id; // jshint ignore:line
         }
         if (req.query.keyword){
-            conditions['place.address_components.long_name'] = new RegExp(req.query.keyword,"i");
+            conditions['place.address_components.long_name'] = new RegExp(req.query.keyword,'i');
         }
 
         Pin.find(
@@ -48,13 +48,13 @@ module.exports = function(app) {
 
                 res.json(response.getJson());
             }
-        )    
+        );
     });
 
     app.get ('/api/pins/:pin_id',
         function(req, res) {
             var response = new apiResponse();
-            Pin.findById(req.params.pin_id, function(err, pin) {
+            Pin.findById(req.params.pin_id, function(err, pin) { // jshint ignore:line
                 if (err){
                     response.setFail(err);
                 }
@@ -67,12 +67,11 @@ module.exports = function(app) {
         });
 
     // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-    app.get('/', function(req, res) {
+    app.get('/api', function(req, res) {
         var result = { message: 'hooray! welcome to our api!' };
         var response = new apiResponse();
         response.setSuccess (result);
 
         res.json(response.getJson());
     });
-
 };

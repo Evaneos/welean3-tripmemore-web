@@ -1,0 +1,6 @@
+
+.icon-list:before { content: '\e800'; } /* '' */
+.icon-search:before { content: '\e802'; } /* '' */
+.icon-location:before { content: '\e803'; } /* '' */
+.icon-eye:before { content: '\e804'; } /* '' */
+.icon-camera:before { content: '\e805'; } /* '' */

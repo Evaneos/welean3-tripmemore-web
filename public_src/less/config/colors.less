@@ -1,0 +1,58 @@
+// Custom real colors
+@color-blue-sea: #BBDFEB;
+@color-brown-light: #F3F1E2;
+@color-brown: #7a765b;
+@color-brown-dark: #2d2c23;
+@color-red: #db4437;
+@color-orange: #ffb400;
+@color-green: #00D3A3;
+@color-blue-light: #00C0F3;
+@color-blue: #4285f4;
+@color-blue-dark: #00ACEE;
+
+
+// Gray scales
+@gray-darker:            lighten(#000, 13.5%); // #222
+@gray-dark:              lighten(#000, 20%);   // #333
+@gray:                   lighten(#000, 33.5%); // #555
+@gray-light:             lighten(#000, 46.7%); // #777
+@gray-lighter:           #fafbfc;
+
+// Bootstrap base colors
+@brand-primary:         @color-blue-light;
+@brand-success:         @color-green;
+@brand-info:            @color-blue;
+@brand-warning:         @color-orange;
+@brand-danger:          @color-red;
+@brand-user:            @color-orange;
+
+@body-bg:               @color-blue-sea;
+@text-color:            @gray-dark;
+@link-color:            @brand-primary;
+@link-hover-color:      darken(@link-color, 15%);
+
+// Bootstrap navbar
+@navbar-default-color:             #fff;
+@navbar-default-bg:                @color-blue-light;
+@navbar-default-border:            transparent;
+
+@navbar-default-link-color:                @navbar-default-color;
+@navbar-default-link-hover-color:          @navbar-default-color;
+@navbar-default-link-hover-bg:             darken(@navbar-default-bg, 5%);
+@navbar-default-link-active-color:         @text-color;
+@navbar-default-link-active-bg:            transparent;
+@navbar-default-link-disabled-color:       @gray-light;
+@navbar-default-link-disabled-bg:          transparent;
+
+// Navbar brand label
+@navbar-default-brand-color:               @text-color;
+@navbar-default-brand-hover-color:         @text-color;
+@navbar-default-brand-hover-bg:            transparent;
+
+// Navbar toggle
+@navbar-default-toggle-hover-bg:           @gray-light;
+@navbar-default-toggle-icon-bar-bg:        @gray;
+@navbar-default-toggle-border-color:       @gray;
+
+@sidebar-bg: #f2f3f4;
+@sidebar-color: @text-color;

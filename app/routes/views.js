@@ -1,3 +1,14 @@
+'use strict';
+
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	}
+	res.redirect('/');
+}
+
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -5,6 +16,10 @@ module.exports = function(app, passport) {
 	// show the home page (will also have our login links)
 	app.get('/', function(req, res) {
 		res.render('index.ejs');
+	});
+
+	app.get('/app', isLoggedIn, function(req, res) {
+		res.render('app.ejs');
 	});
 
 	// PROFILE SECTION =========================
@@ -33,7 +48,7 @@ module.exports = function(app, passport) {
 
 		// process the login form
 		app.post('/login', passport.authenticate('local-login', {
-			successRedirect : '/profile', // redirect to the secure profile section
+			successRedirect : '/app', // redirect to the secure profile section
 			failureRedirect : '/login', // redirect back to the signup page if there is an error
 			failureFlash : true // allow flash messages
 		}));
@@ -152,7 +167,13 @@ module.exports = function(app, passport) {
 		user.local.email    = undefined;
 		user.local.password = undefined;
 		user.save(function(err) {
-			res.redirect('/profile');
+			if(err) {
+				// @todo throw 500
+				console.log('Error while saving user');
+			}
+			else {
+				res.redirect('/profile');	
+			}
 		});
 	});
 
@@ -161,7 +182,13 @@ module.exports = function(app, passport) {
 		var user            = req.user;
 		user.facebook.token = undefined;
 		user.save(function(err) {
-			res.redirect('/profile');
+			if(err) {
+				// @todo throw 500
+				console.log('Error while saving user (unlink facebook');
+			}
+			else {
+				res.redirect('/profile');
+			}
 		});
 	});
 
@@ -170,7 +197,13 @@ module.exports = function(app, passport) {
 		var user           = req.user;
 		user.twitter.token = undefined;
 		user.save(function(err) {
-			res.redirect('/profile');
+			if(err) {
+				// @todo throw 500
+				console.log('Error while saving user (unlink twitter)');
+			}
+			else {
+				res.redirect('/profile');
+			}
 		});
 	});
 
@@ -179,17 +212,13 @@ module.exports = function(app, passport) {
 		var user          = req.user;
 		user.google.token = undefined;
 		user.save(function(err) {
-			res.redirect('/profile');
+			if(err) {
+				// @todo throw 500
+				console.log('Error while saving user unlink google');
+			}
+			else {
+				res.redirect('/profile');
+			}
 		});
 	});
-
-
 };
-
-// route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-	if (req.isAuthenticated())
-		return next();
-
-	res.redirect('/');
-}

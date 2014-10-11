@@ -1,0 +1,16 @@
+<div class="pin" data-id="<%- _id %>" >
+    <% if(media.type==='image') { %>
+        <img src="<%- media.content %>" data-open-place="<%- _id %>" />
+    <% } %>
+    <div class="title" data-open-place="<%- _id %>"><%= place.name %></div>
+    
+    <div class="infos">
+        Pined on <%= date %><br />
+        <a href="<%- origin %>"><%= origin %></a>
+    </div>
+    <div class="links">
+        <a href="#" class="btn btn-default btn-primary btn-sm" data-open-place="<%- _id %>"><i class="icon-eye"></i></a>
+        <a href="#" class="btn btn-default btn-sm" data-focus-place="<%- _id %>"><i class="icon-location"></i></a>
+    </div>
+    <div class="clearfix"></div>
+</div>

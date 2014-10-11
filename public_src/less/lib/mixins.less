@@ -1,0 +1,7 @@
+// Enhance bootstrap .user-select in case none to avoid mobile context menu
+// Does not work everywhere (seems not on android) and could be solved with JS 
+// (but no, I won't write fucking js for that)
+.noselect() {
+    .user-select(none);
+    -webkit-touch-callout: none;
+}
