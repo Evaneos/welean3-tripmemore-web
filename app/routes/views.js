@@ -19,7 +19,10 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/app', isLoggedIn, function(req, res) {
-		res.render('app.ejs');
+		console.log(req.user);
+		res.render('app.ejs', {
+			user : req.user
+		});
 	});
 
 	// PROFILE SECTION =========================

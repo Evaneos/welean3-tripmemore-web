@@ -241,7 +241,28 @@ module.exports =  {
                         alert('you have no pin yet...');
                     }
                     else {
-                        me.uiFillList(pinlist);    
+                        var result = [];
+                        pinlist.forEach(function(item) {
+                            if(item.media.type==='page') {
+                                item.media.content = 'http://s.wordpress.com/mshots/v1/' + encodeURIComponent(item.origin)  + '?w=800';
+                            }
+                            result.push({
+                                _id: item._id,
+                                origin: item.origin,
+                                date: item.date,
+                                place: {
+                                    name: item.place.formatted_address, // jshint ignore:line
+                                    ll: item.place.geometry.location.k,
+                                    lg: item.place.geometry.location.B,
+                                },
+                                media :{
+                                    type: item.media.type,
+                                    content: item.media.content
+                                }
+                            });
+                        });
+
+                        me.uiFillList(result);    
                     }
                     break;
                 case response.STATUS_FAIL :

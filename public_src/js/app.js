@@ -56,6 +56,7 @@ $.get(appConfig.urls.app + 'static/templates/item.ejs', {}, function(template) {
         modalId : 'modal',
         templates : {
             image: template,
+            page: template,
         },
         modalTemplate : '<div class="tripmemore-modal">' +
                             '<div class="mfp-close"></div>' +

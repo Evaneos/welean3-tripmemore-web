@@ -1,5 +1,5 @@
 <div class="pin" data-id="<%- _id %>" >
-    <% if(media.type==='image') { %>
+    <% if(media.type==='image' || media.type==='page') { %>
         <img src="<%- media.content %>" data-open-place="<%- _id %>" />
     <% } %>
     <div class="title" data-open-place="<%- _id %>"><%= place.name %></div>
