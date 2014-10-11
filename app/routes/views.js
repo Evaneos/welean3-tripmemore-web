@@ -61,7 +61,7 @@ module.exports = function(app, passport) {
 
 		// process the signup form
 		app.post('/signup', passport.authenticate('local-signup', {
-			successRedirect : '/profile', // redirect to the secure profile section
+			successRedirect : '/app', // redirect to the secure profile section
 			failureRedirect : '/signup', // redirect back to the signup page if there is an error
 			failureFlash : true // allow flash messages
 		}));
@@ -74,7 +74,7 @@ module.exports = function(app, passport) {
 		// handle the callback after facebook has authenticated the user
 		app.get('/auth/facebook/callback',
 			passport.authenticate('facebook', {
-				successRedirect : '/profile',
+				successRedirect : '/app',
 				failureRedirect : '/'
 			}));
 
@@ -86,7 +86,7 @@ module.exports = function(app, passport) {
 		// handle the callback after twitter has authenticated the user
 		app.get('/auth/twitter/callback',
 			passport.authenticate('twitter', {
-				successRedirect : '/profile',
+				successRedirect : '/app',
 				failureRedirect : '/'
 			}));
 
@@ -99,7 +99,7 @@ module.exports = function(app, passport) {
 		// the callback after google has authenticated the user
 		app.get('/auth/google/callback',
 			passport.authenticate('google', {
-				successRedirect : '/profile',
+				successRedirect : '/app',
 				failureRedirect : '/'
 			}));
 
